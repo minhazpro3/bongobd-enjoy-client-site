@@ -1,3 +1,16 @@
 .navigation-div img{
     width: 60px;
 }
+
+@media screen and (max-width: 688px) {
+   .links{
+       display: grid;
+       grid-template-columns: repeat(1fr);
+   }
+   .img-user{
+       display: block;
+   }
+   .all-links{
+       
+   }
+   }
