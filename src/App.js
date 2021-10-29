@@ -1,23 +1,49 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
 import './App.css';
+import AddService from './components/AddService/AddService';
+import Home from './components/Home/Home';
+import AuthProvider from './components/Hooks/AuthProvider';
+import Login from './components/Login/Login';
+import ManageOrder from './components/ManageOrder/ManageOrder';
+import MyOrder from './components/MyOrder/MyOrder';
+import Navigation from './components/Navigation/Navigation';
+import PlaceOrder from './components/PlaceOrder/PlaceOrder';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <AuthProvider>
+    <Router>
+    <Navigation></Navigation>
+      <Switch>
+      <Route exact path="/">
+        <Home></Home>
+      </Route>
+      <Route  path="/home">
+        <Home></Home>
+      </Route>
+      <Route  path="/login">
+       <Login></Login>
+      </Route>
+      <PrivateRoute  path="/placeOrder">
+        <PlaceOrder></PlaceOrder>
+      </PrivateRoute>
+      <PrivateRoute  path="/addService">
+        <AddService></AddService>
+      </PrivateRoute>
+      <PrivateRoute  path="/myOrder">
+        <MyOrder></MyOrder>
+      </PrivateRoute>
+      <PrivateRoute  path="/manageOrder">
+        <ManageOrder></ManageOrder>
+      </PrivateRoute>
+      </Switch>
+    </Router>
+    </AuthProvider>
+     
     </div>
   );
 }
