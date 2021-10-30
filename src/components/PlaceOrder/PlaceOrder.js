@@ -1,21 +1,86 @@
-import React from 'react';
-import { Card } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Card } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 import './PlaceOrder.css'
 
 const PlaceOrder = () => {
+  const {id}=useParams();
   const {user}=useAuth();
-    const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+  console.log(user.email );
+  const [services,setServices]=useState([]);
+  
+  
+  
+
+  
+
+
+    const { register, handleSubmit  } = useForm();
+    const onSubmit = data => {
+    
+      const  {title, price, description, link, _id} = services.find(service =>  service._id === id)
+      
+
+      const orders = {
+        // _id,
+        title, 
+        price,
+        description,
+        link,
+       city: data.city,
+        country: data.country,
+        email: data.email,
+        name: data.name,
+        phone: data.phone,
+        post: data.post
+      }
+      
+     fetch('http://localhost:5000/allData' , {
+       method: "POST",
+       headers: {
+         'content-type': 'application/json'
+       },
+       body:JSON.stringify(orders)
+     })
+     .then(res=>res.json())
+     .then(data=>{
+      
+     })
+      };
+
+    
+
+      useEffect(()=>{
+        fetch('http://localhost:5000/services')
+        .then(res=>res.json())
+        .then(data=>setServices(data))
+      },[])
+
+      const items = services.filter(item=>item._id===id)
+      
+      
+      
+      
+
     return (
       <div className=" container">
+
+        <h3 className="text-center">Place Order</h3>
        <div className="row">
          <div className="col-md-6">
-          <div className="w-75 my-5 py-4 text-center">
-            <Card>
-              <img  src="https://i.ibb.co/8jRvLzP/67226906-booking-icon-black-website-button-on-white-background-removebg-preview.png" alt=""/>
-            </Card>
+          <div className="w-75 my-5 py-4 d-flex card-div justify-content-center text-center">
+          <Card style={{ width: '18rem' }}>
+            <Card.Img variant="top" src={items[0]?.link} />
+            <Card.Body>
+              <Card.Title>{items[0]?.title}</Card.Title>
+              <Card.Text>
+               {items[0]?.description}
+              </Card.Text>
+              <Button variant="primary">Go somewhere</Button>
+            </Card.Body>
+          </Card>
           </div>
          </div>
     <div className="col-md-6 text-center bg-light my-4 py-3">

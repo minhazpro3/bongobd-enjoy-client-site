@@ -15,6 +15,15 @@ const Home = () => {
       })
     },[])
 
+      const handaleFind = id=>{
+        fetch(`http://localhost:5000/services/${id}`)
+        .then(res=>res.json())
+        .then(data=>{
+          
+        })
+      }
+   
+
     return (
         <div>
         <Banner></Banner>
@@ -35,7 +44,7 @@ const Home = () => {
          <Card.Text>
            $ {pd.price}
           </Card.Text>
-         <Link to="/placeOrder"><Button variant="primary" size="sm">Book Now</Button></Link>
+         <Link to={`/placeOrder/${pd._id}`} ><Button onClick={()=>handaleFind(pd._id)} variant="primary" size="sm">Book Now</Button></Link>
          </div>
         </Card.Body>
       </Card>
@@ -44,6 +53,7 @@ const Home = () => {
             }
          
           </div>
+          
         </div>
         <Footer></Footer>
         </div>
