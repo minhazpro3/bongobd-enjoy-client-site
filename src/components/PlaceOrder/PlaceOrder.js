@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 import './PlaceOrder.css'
+import Swal from 'sweetalert2'
+
 
 const PlaceOrder = () => {
   const {id}=useParams();
@@ -12,7 +14,13 @@ const PlaceOrder = () => {
   const [services,setServices]=useState([]);
   
   
-  
+  function sweetAlert() {
+    Swal.fire({
+        title: 'Order successful!',
+        text: 'Thank you so much.',
+        icon: 'success',
+        confirmButtonText: 'Ok'
+      }) }
 
   
 
@@ -31,6 +39,7 @@ const PlaceOrder = () => {
         link,
        city: data.city,
         status: 'Pending',
+        currentDate: new  Date().toISOString().slice(0, 10),
         country: data.country,
         email: data.email,
         name: data.name,
@@ -38,7 +47,7 @@ const PlaceOrder = () => {
         post: data.post
       }
       
-     fetch('http://localhost:5000/allData' , {
+     fetch('https://scary-hollow-06026.herokuapp.com/allData' , {
        method: "POST",
        headers: {
          'content-type': 'application/json'
@@ -47,14 +56,13 @@ const PlaceOrder = () => {
      })
      .then(res=>res.json())
      .then(data=>{
-      
+      sweetAlert(data)
      })
       };
 
-    
 
       useEffect(()=>{
-        fetch('http://localhost:5000/services')
+        fetch('https://scary-hollow-06026.herokuapp.com/services')
         .then(res=>res.json())
         .then(data=>setServices(data))
       },[])
@@ -99,7 +107,7 @@ const PlaceOrder = () => {
         <input className=" w-75 px-2 " type="text" {...register("country")} placeholder="country " required />
         <br/>
         <br/>
-        <input className="bg-danger border-0 w-75 px-2 py-1 text-white rounded my-2" type="submit"  />
+      <input className="bg-danger border-0 w-75 px-2 py-1 text-white rounded my-2" type="submit"  />
         </form>
        </div>
     </div>

@@ -8,13 +8,12 @@ const Banner = () => {
         <Card.Img src="https://www.theenjoycity.com/wp-content/uploads/2018/04/Cafetaria.jpg" />
         <Card.ImgOverlay className="text-black text-center pt-5 img-fluid">
        
-          <Card.Title ><h3>Welcome To The <span className="text-warning">Enjoy City</span></h3></Card.Title>
+          <Card.Title ><h3  className="text-white">Welcome To The <span className="text-warning">Enjoy City</span></h3></Card.Title>
           
           <Card.Text>
-            This is a wider card with supporting text below as a natural lead-in to
-            additional content. This content is a little bit longer.
+         <h5 className="text-white"> Ride is a verb that means to sit on the back of a <span className="text-warning"> moving animal or to travel in or on a vehicle,</span> <br/> like a car. A ride is a journey made  on an animal or using a vehicle.</h5>
           </Card.Text>
-          <Card.Text>Last updated 3 mins ago</Card.Text>
+          <Card.Text><h4 className="text-white"><span className="text-warning">Why late?</span> Book early</h4></Card.Text>
         </Card.ImgOverlay>
       </Card>
     );

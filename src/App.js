@@ -8,6 +8,7 @@ import Login from './components/Login/Login';
 import ManageOrder from './components/ManageOrder/ManageOrder';
 import MyOrder from './components/MyOrder/MyOrder';
 import Navigation from './components/Navigation/Navigation';
+import Notfound from './components/Notfound/Notfound';
 import PlaceOrder from './components/PlaceOrder/PlaceOrder';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
@@ -40,6 +41,9 @@ function App() {
       <PrivateRoute exact path="/manageOrder">
         <ManageOrder></ManageOrder>
       </PrivateRoute>
+      <Route path="*">
+        <Notfound></Notfound>
+      </Route>
       </Switch>
     </Router>
     </AuthProvider>
