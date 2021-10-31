@@ -5,40 +5,52 @@ import useAuth from '../Hooks/useAuth';
 
 const MyOrder = () => {
   const {user}=useAuth();
-  // console.log('user er email', user.email);
   const [mydata, setMydata]=useState([]);
-
+    const [fresh,setFresh]=useState(false)
+     const userData = mydata.filter(pd=>pd.email == user.email)
+     
     useEffect(()=>{
       fetch('http://localhost:5000/allData')
       .then(res=>res.json())
       .then(data=>setMydata(data))
-    },[])
+    },[fresh])
 
-    // const data = mydata.filter(info=>console.log('info er email akhane', info.email))
-    // console.log(data);
-    // mydata.map(information=>console.log(information))
+      const handleDelete = id =>{
+        const proceed = window.confirm('are you sure? If you want to delete "click" OK')
+       if(proceed){
+        fetch(`http://localhost:5000/allData/${id}`,{
+          method: "DELETE",
+          headers: {
+            'content-type':'application/json'
+          }
+        })
+        .then(res=>res.json())
+        .then(data=>{
+          setFresh(data)})
+       }
+      }
 
     return (
         <div>
         <Table striped bordered hover>
     <thead>
       <tr>
-        <th>SL</th>
+        <th>Name</th>
         <th>Title</th>
         <th>Price</th>
-        <th>Img link</th>
+        <th>City</th>
         <th>Delete</th>
       </tr>
     </thead>
     {
-      mydata.map(datas=> 
+      userData.map(datas=> 
         <tbody key={datas._id}>
         <tr>
-          <td>1</td>
-          <td>{datas.email}</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td><button className="btn btn-danger justify-content-end">Delete</button></td>
+          <td>{datas.name}</td>
+          <td>{datas.title}</td>
+          <td>{datas.price}</td>
+          <td>{datas.city}</td>
+          <td><button  onClick={()=>handleDelete(datas._id)} className="btn btn-danger justify-content-end">Delete</button></td>
         </tr>
       </tbody> )
     }

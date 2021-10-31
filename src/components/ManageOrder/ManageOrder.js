@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
 import './ManageOrder.css'
 
 const ManageOrder = () => {
   const [allInfo, setAllInfo]=useState([]);
 
   const [fresh, setFresh]=useState(false)
-
-  
 
   useEffect(()=>{
     fetch('http://localhost:5000/allData')
@@ -35,6 +32,24 @@ const ManageOrder = () => {
     }
   }
 
+
+        const handleUpdate = id =>{
+          const update = {
+            status: 'Approved'
+          }
+          fetch(`http://localhost:5000/update/${id}`, {
+            method: 'PUT',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body:JSON.stringify(update)
+          })
+          .then(res=>res.json())
+          .then(data=>{
+            setFresh(data)
+          })
+        }
+
     return (
        <div >
       <table className="table table-hover ">
@@ -44,6 +59,7 @@ const ManageOrder = () => {
       <th scope="col">Title</th>
       <th scope="col">Price</th>
       <th scope="col">City</th>
+      <th scope="col">Status</th>
       <th scope="col">Delete</th>
     </tr>
   </thead>
@@ -55,7 +71,8 @@ const ManageOrder = () => {
       <td>{info.title}</td>
       <td>{info.price}</td>
       <td>{info.city}</td>
-      <td><input onClick={()=>handleDelete(info._id)} className="bg-danger text-white border-0 rounded " type="button" value="Delete" /></td>
+      <td><input onClick={()=>handleUpdate(info._id)} className="bg-success p-2 text-white border-0 rounded " type="button" value={info.status} /></td>
+      <td><input onClick={()=>handleDelete(info._id)} className="bg-danger p-2 text-white border-0 rounded " type="button" value="Delete" /></td>
     </tr>
   </tbody>
   )

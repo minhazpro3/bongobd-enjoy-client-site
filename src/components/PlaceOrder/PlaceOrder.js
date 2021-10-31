@@ -30,6 +30,7 @@ const PlaceOrder = () => {
         description,
         link,
        city: data.city,
+        status: 'Pending',
         country: data.country,
         email: data.email,
         name: data.name,
@@ -60,10 +61,6 @@ const PlaceOrder = () => {
 
       const items = services.filter(item=>item._id===id)
       
-      
-      
-      
-
     return (
       <div className=" container">
 
@@ -78,7 +75,9 @@ const PlaceOrder = () => {
               <Card.Text>
                {items[0]?.description}
               </Card.Text>
-              <Button variant="primary">Go somewhere</Button>
+              <div>
+                <p> $ {items[0]?.price}</p>
+              </div>
             </Card.Body>
           </Card>
           </div>
