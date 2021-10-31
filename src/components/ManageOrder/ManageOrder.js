@@ -86,7 +86,7 @@ const ManageOrder = () => {
 
 
     return (
-       <div >
+       <div className="allOrder-div" >
         
       <table className="table table-hover ">
   <thead>
