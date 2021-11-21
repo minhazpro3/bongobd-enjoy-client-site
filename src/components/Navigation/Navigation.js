@@ -18,12 +18,12 @@ const Navigation = () => {
       <Nav className="me-auto">
       {user.email ?
         <NavDropdown className="mt-2" style={{color: 'white'}} title="Options" id="basic-nav-dropdown">
-        <Link  className=" ms-2 text-decoration-none" to="/addService">AddService</Link>
+        <Link  className=" ms-2 text-decoration-none" to="/addService">add services</Link>
         <br/>
-        <Link  className=" ms-2 text-decoration-none" to="/myOrder">MyOrder</Link>
+        <Link  className=" ms-2 text-decoration-none" to="/myOrder">all orders</Link>
         <br/>
-        <Link  className="ms-2 text-decoration-none" to="/manageOrder">MngOrder</Link>
-          <NavDropdown.Divider />
+        <Link  className="ms-2 text-decoration-none" to="/manageOrder">manage all orders</Link>
+          
          
         </NavDropdown>
         : ' '}

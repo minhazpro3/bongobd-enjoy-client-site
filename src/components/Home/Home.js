@@ -8,23 +8,25 @@ import './Home.css'
 
 const Home = () => {
   const [services,setServices]= useState([]);
+  const [fresh,setFresh]=useState(false)
   const [isloadding, setIsloadding]=useState(false);
 
   
 
     useEffect(()=>{
-      fetch('https://scary-hollow-06026.herokuapp.com/services')
+      fetch('http://localhost:5000/services')
       .then(res=>res.json())
       .then(data=>{
         setServices(data);
         setIsloadding(data)
+        setFresh(true)
       })
-    },[])
+    },[fresh])
 
   
 
       const handaleFind = id=>{
-        fetch(`https://scary-hollow-06026.herokuapp.com/services/${id}`)
+        fetch(`http://localhost:5000/services/${id}`)
         .then(res=>res.json())
         .then(data=>{
           
@@ -44,7 +46,7 @@ const Home = () => {
               services.map(pd=>
                 <div key={pd._id} className=" col-md-4 mb-5 d-flex justify-content-center">
                 <Card style={{ width: '18rem' , height: "23rem"  }}>
-        <Card.Img variant="top" style={{height: "13rem"}} src={pd.link} />
+        <Card.Img variant="top" style={{height: "13rem"}} src={`data:image/*;base64,${pd.image}`} />
       <Card.Body>
           <Card.Title>{pd.title}</Card.Title>
           <Card.Text>

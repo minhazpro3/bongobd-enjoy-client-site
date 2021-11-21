@@ -2,21 +2,26 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 const AddService = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit,reset } = useForm();
   const onSubmit = data =>{
+    const formData = new FormData();
+    formData.append('title', data.title)
+    formData.append('price', data.price)
+    formData.append('description', data.description)
+    formData.append('image', data.image[0])
+    
 
-    const url = 'https://scary-hollow-06026.herokuapp.com/addService'
+    const url = 'http://localhost:5000/addService'
     fetch(url, {
       method: "POST",
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(data)
-      
+      body: formData
     })
     .then(res=>res.json())
     .then(data=>{
       console.log(data);
+      if(data.acknowledged){
+        reset()
+      }
     
     })
 
@@ -32,7 +37,7 @@ const AddService = () => {
         <br/>
         <input className="mb-2 w-25" {...register("price")} required type="text" placeholder="Price" />
         <br/>
-        <input className="mb-2 w-25" {...register("link")} required type="text" placeholder="Img Link" />
+        <input className="mb-2 w-25" {...register("image")} accept="image/*"  type="file"  />
         <br/>
         <input className="w-25 border-0 rounded bg-danger text-white" type="submit" />
       </form>

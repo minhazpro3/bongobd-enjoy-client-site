@@ -47,7 +47,7 @@ const PlaceOrder = () => {
         post: data.post
       }
       
-     fetch('https://scary-hollow-06026.herokuapp.com/allData' , {
+     fetch('http://localhost:5000/allData' , {
        method: "POST",
        headers: {
          'content-type': 'application/json'
@@ -62,7 +62,7 @@ const PlaceOrder = () => {
 
 
       useEffect(()=>{
-        fetch('https://scary-hollow-06026.herokuapp.com/services')
+        fetch('http://localhost:5000/services')
         .then(res=>res.json())
         .then(data=>setServices(data))
       },[])
@@ -77,7 +77,7 @@ const PlaceOrder = () => {
          <div className="col-md-6">
           <div className="w-75 my-5 py-4 d-flex card-div justify-content-center text-center">
           <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={items[0]?.link} />
+            <Card.Img variant="top" src={`data:image/*;base64,${items[0]?.image}`} />
             <Card.Body>
               <Card.Title>{items[0]?.title}</Card.Title>
               <Card.Text>

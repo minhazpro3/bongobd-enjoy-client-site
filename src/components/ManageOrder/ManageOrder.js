@@ -12,7 +12,7 @@ const ManageOrder = () => {
   
   
   useEffect(()=>{
-    fetch('https://scary-hollow-06026.herokuapp.com/allData')
+    fetch('http://localhost:5000/allData')
     .then(res=>res.json())
     .then(data=>{
       setAllInfo(data);
@@ -25,7 +25,7 @@ const ManageOrder = () => {
   const handleDelete = (id)=>{
     const proceed = window.confirm('are you sure? If you want to delete "click" OK')
     if(proceed){
-      fetch(`https://scary-hollow-06026.herokuapp.com/deleteAll/${id}`, {
+      fetch(`http://localhost:5000/deleteAll/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json"
@@ -54,7 +54,7 @@ const ManageOrder = () => {
           const update = {
             status: 'Approved'
           }
-          fetch(`https://scary-hollow-06026.herokuapp.com/update/${id}`, {
+          fetch(`http://localhost:5000/update/${id}`, {
             method: 'PUT',
             headers: {
               'content-type': 'application/json'
@@ -91,6 +91,7 @@ const ManageOrder = () => {
       <table className="table table-hover ">
   <thead>
     <tr>
+      <th scope="col">SL</th>
       <th scope="col">Name</th>
       <th scope="col">Title</th>
       <th scope="col">Price</th>
@@ -102,10 +103,11 @@ const ManageOrder = () => {
   
 
   {
-  allInfo.map(info  => 
+  allInfo.map((info,index)  => 
    
     <tbody className="my-1" key={info._id}>
     <tr>
+      <td>{(index+1)}</td>
       <td>{info.name}</td>
       <td>{info.title}</td>
       <td>$ {info.price}</td>

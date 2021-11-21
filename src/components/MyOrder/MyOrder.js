@@ -14,7 +14,7 @@ const MyOrder = () => {
      
 
     useEffect(()=>{
-      fetch('https://scary-hollow-06026.herokuapp.com/allData')
+      fetch('http://localhost:5000/allData')
       .then(res=>res.json())
       .then(data=>{
         setMydata(data)
@@ -27,7 +27,7 @@ const MyOrder = () => {
       const handleDelete = id =>{
         const proceed = window.confirm('are you sure? If you want to delete "click" OK')
        if(proceed){
-        fetch(`https://scary-hollow-06026.herokuapp.com/allData/${id}`,{
+        fetch(`http://localhost:5000/allData/${id}`,{
           method: "DELETE",
           headers: {
             'content-type':'application/json'
@@ -55,6 +55,7 @@ const MyOrder = () => {
         <Table striped bordered hover>
     <thead>
       <tr>
+        <th>SL</th>
         <th>Name</th>
         <th>Title</th>
         <th>Price</th>
@@ -65,9 +66,10 @@ const MyOrder = () => {
     </thead>
 
     {
-      userData.map(datas=> 
+      userData.map((datas,index)=> 
         <tbody key={datas._id}>
         <tr>
+          <td>{(index+1)}</td>
           <td>{datas.name}</td>
           <td>{datas.title}</td>
           <td>$ {datas.price}</td>
