@@ -24,7 +24,7 @@ const AddService = () => {
 
     return (
        <div className="text-center">
-         <h3 className="text py-2 mt-3">Add Service</h3>
+         <h3 className="text py-2 mt-3">Add Services</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
         <input className="my-2 w-25" {...register("title")} required type="text" placeholder="Title" />
         <br/>
