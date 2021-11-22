@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ManageOrder.css'
 import Swal from 'sweetalert2'
 import { Spinner } from 'react-bootstrap';
+import useAuth from '../Hooks/useAuth'
 
 
 
@@ -9,6 +10,8 @@ const ManageOrder = () => {
   const [allInfo, setAllInfo]=useState([]);
   const [fresh, setFresh]=useState(false)
   const [isLoading, setIsLoading]=useState(false);
+  const {user}=useAuth()
+  
   
   
   useEffect(()=>{
@@ -87,11 +90,12 @@ const ManageOrder = () => {
 
     return (
        <div className="allOrder-div" >
+         <h4>Recent orders: {allInfo.length}</h4>
         
       <table className="table table-hover ">
   <thead>
-    <tr>
-      <th scope="col">SL</th>
+    <tr className="bg-info">
+      <th scope="col">SL/Type</th>
       <th scope="col">Name</th>
       <th scope="col">Title</th>
       <th scope="col">Price</th>
@@ -99,20 +103,27 @@ const ManageOrder = () => {
       <th scope="col">Status</th>
       <th scope="col">Delete</th>
     </tr>
+
+    
   </thead>
+  
   
 
   {
   allInfo.map((info,index)  => 
+  
    
-    <tbody className="my-1" key={info._id}>
-    <tr>
-      <td>{(index+1)}</td>
-      <td>{info.name}</td>
+    <tbody className=" text-primary m-5" key={info._id}>
+      
+    <tr className=" text-info  hover:bg-light">
+      <td>{(index+1)} {info.status === "Approved" ? <i className="fas fa-check-circle ms-2 text-success"></i>: ""}</td>
+      <td> {info.name}</td>
       <td>{info.title}</td>
       <td>$ {info.price}</td>
       <td>{info.city}<br/>{info.currentDate}</td>
-      <td><input onClick={()=>handleUpdate(info._id)} className="bg-success p-2 text-white border-0 rounded " type="button" value={info.status} /></td>
+      <td><input onClick={()=>handleUpdate(info._id)} className="bg-success p-2 text-white border-0 rounded " type="button" value={info.status}  /> 
+      
+      </td>
       <td><input onClick={()=>handleDelete(info._id)} className="bg-danger p-2 text-white border-0 rounded " type="button" value="Delete" /></td>
     </tr> 
   </tbody>

@@ -68,6 +68,7 @@ const PlaceOrder = () => {
       },[])
 
       const items = services.filter(item=>item._id===id)
+
       
     return (
       <div className=" container">
@@ -77,14 +78,14 @@ const PlaceOrder = () => {
          <div className="col-md-6">
           <div className="w-75 my-5 py-4 d-flex card-div justify-content-center text-center">
           <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={`data:image/*;base64,${items[0]?.image}`} />
+           {items[0]?.image?  <Card.Img variant="top" src={`data:image/*;base64,${items[0]?.image}`} />: <h2>Loading...</h2>}
             <Card.Body>
               <Card.Title>{items[0]?.title}</Card.Title>
               <Card.Text>
                {items[0]?.description}
               </Card.Text>
               <div>
-                <p> $ {items[0]?.price}</p>
+                <p style={{color: 'tomato', fontWeight: '700'}}> $ {items[0]?.price}</p>
               </div>
             </Card.Body>
           </Card>
